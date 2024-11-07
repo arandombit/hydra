@@ -21,8 +21,10 @@
     "windows": [
       {
         "title": "hydra",
-        "width": 800,
-        "height": 600
+        "hiddenTitle": true,
+        "titleBarStyle": "Overlay",
+        "width": 1000,
+        "height": 650
       }
     ],
     "security": {
