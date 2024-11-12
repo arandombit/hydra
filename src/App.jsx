@@ -1,17 +1,18 @@
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import {  Button, Flex, Grid, ScrollArea } from '@radix-ui/themes'
-import { CardStackPlusIcon,  PlusIcon } from '@radix-ui/react-icons'
+import { Button, Flex, Grid, ScrollArea } from '@radix-ui/themes'
+import { CardStackPlusIcon, PlusIcon } from '@radix-ui/react-icons'
 
 import './App.css'
 
 import { handleAdd, handleCollection, handleDelete, handleEditSubmit, handleSubmit } from './handler/chat'
 
-import request from './util/request'
 import { getElement, updateElement } from './util/array'
+import openai from './util/openai'
 
 import useLocalStorage from './hook/useLocalStorage'
 
+import APIKey from './component/APIKey'
 import ChatWindow from './component/ChatWindow'
 import Collection from './component/Collection'
 import Session from './component/Session'
@@ -20,12 +21,13 @@ const App = () => {
   const [message, setMessage] = useState('')
   const [edit, setEdit] = useState('')
   const [editID, setEditID] = useState('')
+  const [apiKey, setAPIKey] = useLocalStorage('apiKey', '')
   const [sessions, setSessions] = useLocalStorage('sessions', [])
   const [selected, setSelected] = useLocalStorage('selected', '')
   const [selectedCollection, setSelectedCollection] = useLocalStorage('selectedCollection', '')
   const session = getElement(sessions, selected)
   const mutation = useMutation({
-    mutationFn: messages => request.post('http://localhost:8000/', { messages }),
+    mutationFn: messages => apiKey ? openai.query(apiKey, messages) : alert('No API key found'),
     onSuccess: data => {
       const state = [...sessions]
       const session = getElement(state, selected)
@@ -82,6 +84,7 @@ const App = () => {
                   </Collection>
             ) }
           </ScrollArea>
+          <APIKey onChange={e => setAPIKey(e.target.value)} value={apiKey} />
         </Flex>
         <ChatWindow
           session={session}

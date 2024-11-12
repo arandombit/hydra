@@ -1,21 +1,26 @@
-const metadata = (method, data, options) => ({
+import http from 'node:http'
+import https from 'node:https'
+
+const protocol = { http, https }
+
+const agent = p => new protocol[p.protocol === 'http:' ? 'http' : 'https'].Agent({ keepAlive: true })
+
+const metadata = (method, data, headers = {}) => ({
   method,
-  ...(options.credentials ? { credentials: 'include' } : {}),
-  ...(data ? { body: JSON.stringify(data) } : {}),
-  headers: { ...( data ? { 'Content-Type': 'application/json' } : {}), ...options.headers }
+  body: JSON.stringify(data),
+  headers: { 'Content-Type': 'application/json', ...headers },
+  agent
 })
 
-const defaultOptions = { credentials: false, headers: {} }
-
 const res = res => res.ok
-  ? res.json().then(d => d).catch(() => `${res.status}: ${res.statusText}`)
-  : Promise.reject(new Error(`${res.status}: ${res.statusText}`))
+  ? res.json().then(d => d).catch(() => res.status)
+  : Promise.reject(new Error(res))
 
 export default {
-  get: (url, options = defaultOptions) => fetch(url, options).then(res),
+  get: (url, headers = {}) => fetch(url, { headers, agent }).then(res),
   ...['delete', 'patch', 'post', 'put'].reduce((acc, method) => ({
     ...acc,
-    [method]: (url, body, options = defaultOptions) => fetch(url, metadata(method, body, options))
+    [method]: (url, body, headers = {}) => fetch(url, metadata(method, body, headers))
       .then(res)
   }), {})
 }
