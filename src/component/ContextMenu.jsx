@@ -15,7 +15,7 @@ const ContextMenu = props => (
   <C.Root>
     <C.Trigger>{ props.children }</C.Trigger>
       <C.Content>
-        { menu[props.type].map(item => <C.Item onClick={props[item.event]}>{ item.title }</C.Item>) }
+        { menu[props.type].map(item => <C.Item key={item.event} onClick={props[item.event]}>{ item.title }</C.Item>) }
       </C.Content>
   </C.Root>
 )

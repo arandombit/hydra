@@ -54,6 +54,8 @@ const App = () => {
                     selected={selected === s.id}
                     isEditing={editID === s.id}
                     onClick={() => setSelected(s.id)}
+                    onChange={e => setEdit(e.target.value)}
+                    value={edit}
                     onSubmit={handleEditSubmit({ edit, editID, sessions, setEdit, setEditID, setSessions })}
                     onEdit={() => setEditID(editID !== s.id ? s.id : '')}
                     onDelete={handleDelete({ id: s.id, sessions, setSessions })}
@@ -76,6 +78,8 @@ const App = () => {
                         selected={selected === x.id}
                         isEditing={editID === x.id}
                         onClick={() => setSelected(x.id)}
+                        onChange={e => setEdit(e.target.value)}
+                        value={edit}
                         onSubmit={handleEditSubmit({ edit, editID, sessions, setEdit, setEditID, setSessions })}
                         onEdit={() => setEditID(editID !== x.id ? x.id : '')}
                         onDelete={handleDelete({ id: x.id, sessions, setSessions })}
