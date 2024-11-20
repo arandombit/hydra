@@ -12,7 +12,7 @@ const client = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <QueryClientProvider {...{ client }}>
-      <Theme appearance='dark' accentColor='gray' grayColor='slate' radius='small'>
+      <Theme appearance='dark' accentColor='gray' grayColor='slate' radius='small' style={{ height: '100%' }}>
         <App />
       </Theme>
     </QueryClientProvider>
