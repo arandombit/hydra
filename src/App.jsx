@@ -37,11 +37,11 @@ const App = () => {
     }
   })
   return (
-    <Flex direction='column' px='1%' py='1%' height='95vh' width='100%'>
+    <Flex direction='column' p='1%' height='100%' width='100%'>
       <Flex width='100%' justify='end'>
         <Grid columns='2' mb='2' width='20%'>
-          <Button variant='outline' mr='1' onClick={handleAdd({ sessions, setSelected, setSessions, type: 'session' })}><PlusIcon /></Button>
-          <Button variant='outline' ml='1' onClick={handleAdd({ sessions, setSessions, type: 'collection' })}><CardStackPlusIcon /></Button>
+          <Button variant='outline' mr='1' height='100%' onClick={handleAdd({ sessions, setSelected, setSessions, type: 'session' })}><PlusIcon /></Button>
+          <Button variant='outline' ml='1' height='100%' onClick={handleAdd({ sessions, setSessions, type: 'collection' })}><CardStackPlusIcon /></Button>
         </Grid>
       </Flex>
       <Flex height='100%' width='100%'>
