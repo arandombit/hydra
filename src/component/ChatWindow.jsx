@@ -1,4 +1,4 @@
-import { Card, Flex, ScrollArea, Text, TextField } from '@radix-ui/themes'
+import { Card, Flex, ScrollArea, Spinner, Text, TextField } from '@radix-ui/themes'
 import Markdown from './Markdown'
 
 const ChatWindow = props => (
@@ -9,6 +9,9 @@ const ChatWindow = props => (
           <Flex direction='column' gap='3' pb='1.5%' height='100%'>
             <Text size='4'>{ props.session.title }</Text>
             { props.session.messages.map(m => <Card key={m.content}><Markdown>{ m.content }</Markdown></Card>) }
+            <Flex justify='center'>
+              <Spinner loading={props.isFetching} />
+            </Flex>
           </Flex>
         </ScrollArea>
         <form onSubmit={props.onSubmit}>

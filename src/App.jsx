@@ -91,6 +91,7 @@ const App = () => {
           <APIKey onChange={e => setAPIKey(e.target.value)} value={apiKey} />
         </Flex>
         <ChatWindow
+          isFetching={mutation.status === 'pending'}
           session={session}
           onSubmit={handleSubmit({ message, mutation, selected, sessions, setMessage, setSessions })}
           onChange={e => setMessage(e.target.value)}
