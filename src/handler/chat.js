@@ -1,10 +1,21 @@
 import { deleteElement, getElement, updateElement } from '../util/array'
 import { newInstance } from '../util/data'
+import openai from '../util/openai'
 
 export const handleAdd = api => () => {
   const item = newInstance(api.type)
   api.setSessions([...api.sessions, item])
   if (api.type === 'session') { api.setSelected(item.id) }
+}
+
+export const handleChange = api => async e => {
+  api.setToken(e.target.value.trim())
+  if (!e.target.value.trim()) {
+    api.setIsValid(null)
+  } else {
+    const isValid = await openai.isValidToken(e.target.value)
+    api.setIsValid(isValid)
+  }
 }
 
 export const handleCollection = api => () => {

@@ -5,7 +5,7 @@ import { CardStackPlusIcon, PlusIcon } from '@radix-ui/react-icons'
 
 import './App.css'
 
-import { handleAdd, handleCollection, handleDelete, handleEditSubmit, handleSubmit } from './handler/chat'
+import { handleAdd, handleChange, handleCollection, handleDelete, handleEditSubmit, handleSubmit } from './handler/chat'
 
 import { getElement, updateElement } from './util/array'
 import openai from './util/openai'
@@ -21,13 +21,14 @@ const App = () => {
   const [message, setMessage] = useState('')
   const [edit, setEdit] = useState('')
   const [editID, setEditID] = useState('')
-  const [apiKey, setAPIKey] = useLocalStorage('apiKey', '')
+  const [token, setToken] = useLocalStorage('token', '')
+  const [isValid, setIsValid] = useLocalStorage('isValidToken', null)
   const [sessions, setSessions] = useLocalStorage('sessions', [])
   const [selected, setSelected] = useLocalStorage('selected', '')
   const [selectedCollection, setSelectedCollection] = useLocalStorage('selectedCollection', '')
   const session = getElement(sessions, selected)
   const mutation = useMutation({
-    mutationFn: messages => apiKey ? openai.query(apiKey, messages) : alert('No API key found'),
+    mutationFn: messages => token ? openai.query(token, messages) : alert('No API key found'),
     onSuccess: data => {
       const state = [...sessions]
       const session = getElement(state, selected)
@@ -88,7 +89,7 @@ const App = () => {
                   </Collection>
             ) }
           </ScrollArea>
-          <APIKey onChange={e => setAPIKey(e.target.value)} value={apiKey} />
+          <APIKey onChange={handleChange({ setIsValid, setToken, token })} isValid={isValid} value={token} />
         </Flex>
         <ChatWindow
           isFetching={mutation.status === 'pending'}
