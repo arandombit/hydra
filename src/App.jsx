@@ -38,14 +38,14 @@ const App = () => {
     }
   })
   return (
-    <Flex direction='column' p='1%' height='100%' width='100%' justify='center'>
+    <Flex direction='column' px='1%' height='100%' width='100%' justify='center'>
       <Flex width='100%' justify='end' align='center'>
         <Grid columns='2' mb='2' width='20%'>
           <Button variant='outline' mr='1' height='100%' onClick={handleAdd({ sessions, setSelected, setSessions, type: 'session' })}><PlusIcon /></Button>
           <Button variant='outline' ml='1' height='100%' onClick={handleAdd({ sessions, setSessions, type: 'collection' })}><CardStackPlusIcon /></Button>
         </Grid>
       </Flex>
-      <Flex height='90%' width='100%'>
+      <Flex height='93%' width='100%'>
         <Flex direction='column' height='100%' width='20%'>
           <ScrollArea orientation='vertical'>
             { sessions.map(s =>
