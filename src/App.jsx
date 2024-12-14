@@ -28,24 +28,24 @@ const App = () => {
   const [selectedCollection, setSelectedCollection] = useLocalStorage('selectedCollection', '')
   const session = getElement(sessions, selected)
   const mutation = useMutation({
-    mutationFn: messages => token ? openai.query(token, messages) : alert('No API key found'),
+    mutationFn: messages => token ? openai[messages.length <= 1 ? 'newSession' : 'query'](token, messages) : alert('No API key found'),
     onSuccess: data => {
       const state = [...sessions]
       const session = getElement(state, selected)
       const messages = [...session.messages, data.message]
-      updateElement(state, selected, { messages })
+      updateElement(state, selected, { ...(data.title ? { title: data.title } : {}), messages })
       setSessions(state)
     }
   })
   return (
-    <Flex direction='column' px='1%' height='100%' width='100%' justify='center'>
+    <Flex direction='column' px='1em' height='100%' width='100%' justify='center'>
       <Flex width='100%' justify='end' align='center'>
         <Grid columns='2' mb='2' width='20%'>
           <Button variant='outline' mr='1' height='100%' onClick={handleAdd({ sessions, setSelected, setSessions, type: 'session' })}><PlusIcon /></Button>
           <Button variant='outline' ml='1' height='100%' onClick={handleAdd({ sessions, setSessions, type: 'collection' })}><CardStackPlusIcon /></Button>
         </Grid>
       </Flex>
-      <Flex height='93%' width='100%'>
+      <Flex height='92%' width='100%'>
         <Flex direction='column' height='100%' width='20%'>
           <ScrollArea orientation='vertical'>
             { sessions.map(s =>

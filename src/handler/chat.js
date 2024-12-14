@@ -54,6 +54,6 @@ export const handleSubmit = api => e => {
   updateElement(sessions, session.id, { ...session, messages })
 
   api.setSessions(sessions)
-  api.mutation.mutate(messages, api.selected)
+  api.mutation.mutate(messages)
   api.setMessage('')
 }
