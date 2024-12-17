@@ -12,7 +12,7 @@ const Collection = props => (
           ? <form onSubmit={props.onSubmit}>
               <TextField.Root width='100%' onChange={props.onChange} value={props.value} />
             </form>
-          : <ContextMenu type='collection' onNewSession={props.onNewSession} onDelete={props.onDelete}>
+          : <ContextMenu type='collection' onNewSession={props.onNewSession} onEdit={props.onEdit} onDelete={props.onDelete}>
               <Text size='4' ml='3%' truncate onClick={props.onSelect}>{ props.title }</Text>
             </ContextMenu>
         }

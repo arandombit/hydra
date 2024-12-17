@@ -13,7 +13,7 @@ const Session = props => (
           <TextField.Root width='100%' onChange={props.onChange} value={props.value} />
         </form>
       : <ContextMenu type='session' onEdit={props.onEdit} onDelete={props.onDelete}>
-          <Text size='4' onClick={props.onClick}>{ props.title }</Text>
+          <Text size='3' onClick={props.onClick}>{ props.title }</Text>
         </ContextMenu>
     }
   </Flex>

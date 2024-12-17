@@ -7,6 +7,7 @@ const menu = {
   ],
   collection: [
     { title: 'New Session', event: 'onNewSession' },
+    { title: 'Edit', event: 'onEdit' },
     { title: 'Delete', event: 'onDelete' }
   ]
 }

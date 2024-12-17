@@ -56,10 +56,10 @@ const App = () => {
                     isEditing={editID === s.id}
                     onClick={() => setSelected(s.id)}
                     onChange={e => setEdit(e.target.value)}
-                    value={edit}
                     onSubmit={handleEditSubmit({ edit, editID, sessions, setEdit, setEditID, setSessions })}
                     onEdit={() => setEditID(editID !== s.id ? s.id : '')}
                     onDelete={handleDelete({ id: s.id, sessions, setSessions })}
+                    value={edit}
                   />
                 : <Collection key={s.id}
                     {...s}
@@ -67,11 +67,12 @@ const App = () => {
                     isEditing={editID === s.id}
                     isOpen={selectedCollection === s.id}
                     onSubmit={handleEditSubmit({ edit, editID, sessions, setEdit, setEditID, setSessions })}
+                    onEdit={() => setEditID(editID !== s.id ? s.id : '')}
                     onChange={e => setEdit(e.target.value)}
-                    value={edit}
                     onSelect={() => setSelectedCollection(selectedCollection === s.id ? '' : s.id)}
                     onNewSession={handleCollection({ id: s.id, sessions, setSelected, setSelectedCollection, setSessions })}
                     onDelete={handleDelete({ id: s.id, sessions, setSessions })}
+                    value={edit}
                   >
                     { s.children.map(x =>
                       <Session key={x.id}
@@ -80,10 +81,10 @@ const App = () => {
                         isEditing={editID === x.id}
                         onClick={() => setSelected(x.id)}
                         onChange={e => setEdit(e.target.value)}
-                        value={edit}
                         onSubmit={handleEditSubmit({ edit, editID, sessions, setEdit, setEditID, setSessions })}
                         onEdit={() => setEditID(editID !== x.id ? x.id : '')}
                         onDelete={handleDelete({ id: x.id, sessions, setSessions })}
+                        value={edit}
                       />
                     ) }
                   </Collection>
