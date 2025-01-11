@@ -52,7 +52,7 @@ const App = () => {
               !s.children
                 ? <Session key={s.id}
                     {...s}
-                    selected={selected === s.id}
+                    isSelected={selected === s.id}
                     isEditing={editID === s.id}
                     onClick={() => setSelected(s.id)}
                     onChange={e => setEdit(e.target.value)}
@@ -77,7 +77,7 @@ const App = () => {
                     { s.children.map(x =>
                       <Session key={x.id}
                         {...x}
-                        selected={selected === x.id}
+                        isSelected={selected === x.id}
                         isEditing={editID === x.id}
                         onClick={() => setSelected(x.id)}
                         onChange={e => setEdit(e.target.value)}

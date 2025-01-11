@@ -4,7 +4,7 @@ import openai from '../util/openai'
 
 export const handleAdd = api => () => {
   const item = newInstance(api.type)
-  api.setSessions([...api.sessions, item])
+  api.setSessions([item, ...api.sessions])
   if (api.type === 'session') { api.setSelected(item.id) }
 }
 

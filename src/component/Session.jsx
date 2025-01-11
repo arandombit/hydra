@@ -5,7 +5,7 @@ import ContextMenu from './ContextMenu'
 const Session = props => (
   <Flex py='5%' px='5%' align='center' justify='start'
     style={{
-      backgroundColor: props.selected && 'var(--gray-a2)',
+      backgroundColor: props.isSelected && 'var(--gray-a2)',
       borderRadius: 'max(var(--radius-4),var(--radius-full))'
     }}>
     { props.isEditing
